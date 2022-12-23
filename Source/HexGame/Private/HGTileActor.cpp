@@ -23,6 +23,12 @@ FAxialCoordinate const AHGTileActor::GetHexCoordinate()
 	return HexCoord;
 }
 
+void AHGTileActor::SetHexCoordinate(FAxialCoordinate HexCoordinate)
+{
+	HexCoord = HexCoordinate;
+	SetActorLocation(HexCoordinate.ToWorldCoordinate() + FVector(0,0, GetRandomZOffset()));
+}
+
 // Called when the game starts or when spawned
 void AHGTileActor::BeginPlay()
 {

@@ -6,6 +6,20 @@
 #include "GameFramework/Actor.h"
 #include "HGTileActor.generated.h"
 
+namespace BaseVector
+{
+	// vectors that the axes in the axial ("hex") coordinate system correspond to in world coordinates
+	const FVector Q = HEX_DIAMETER * FVector(sqrt(3.0f), 0.0f, 0.0f);
+	const FVector R = HEX_DIAMETER * FVector(sqrt(3.0f)/2.0f, 1.5f, 0.0f);
+	const FVector S = -Q - R;
+
+	// vectors (q,r) that the world coordinate axes correspond to in in the axial ("hex") coordinate system 
+	const FVector2D X = FVector2D(sqrt(3.0f)/3.0f, 0) / HEX_DIAMETER;
+	const FVector2D Y = FVector2D(-1.0f/3.0f, 2.0f/3.0f) / HEX_DIAMETER;
+	
+}
+
+
 /* Axial coordinates as explained here: https://www.redblobgames.com/grids/hexagons/#coordinates */
 USTRUCT()
 struct FAxialCoordinate
@@ -29,6 +43,12 @@ public:
 	{
 		return (q_ == Other.q_) && (r_ == Other.r_);
 	}
+
+	// convenience functions
+	FVector ToWorldCoordinate() const
+	{
+		return BaseVector::Q * q() + BaseVector::R * r();
+	}
 };
 
 // function needs to be defined for the AxialCoordinate type to be used as key in TMap
@@ -36,15 +56,6 @@ FORCEINLINE uint32 GetTypeHash(const FAxialCoordinate& Coord)
 {
 	return FCrc::MemCrc_DEPRECATED(&Coord, sizeof(FAxialCoordinate));
 }
-
-// vectors that the axes in the axial ("hex") coordinate system correspond to in world coordinates
-const FVector BaseVectorQ = HEX_DIAMETER * FVector(sqrt(3.0f), 0.0f, 0.0f);
-const FVector BaseVectorR = HEX_DIAMETER * FVector(sqrt(3.0f)/2.0f, 1.5f, 0.0f);
-const FVector BaseVectorS = -BaseVectorQ - BaseVectorR;
-
-// vectors (q,r) that the world coordinate axes correspond to in in the axial ("hex") coordinate system 
-const FVector2D BaseVectorX = FVector2D(sqrt(3.0f)/3.0f, 0) / HEX_DIAMETER;
-const FVector2D BaseVectorY = FVector2D(-1.0f/3.0f, 2.0f/3.0f) / HEX_DIAMETER;
 
 
 UCLASS()
@@ -69,4 +80,7 @@ public:
 	UStaticMeshComponent* MeshComponent;
 	
 	FAxialCoordinate const GetHexCoordinate();
+
+	void SetHexCoordinate(FAxialCoordinate HexCoordinate);
+
 };
