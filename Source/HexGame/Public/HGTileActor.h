@@ -49,6 +49,15 @@ public:
 	{
 		return BaseVector::Q * q() + BaseVector::R * r();
 	}
+
+	static FAxialCoordinate HexFromIndex(int32 Row, int32 Column)
+	{
+		// bitwise and &1 instead of modulo %2 because it works with negative numbers, too
+		int32 q = Column - (Row + (Row & 1)) / 2;
+		int32 r = Row;
+
+		return FAxialCoordinate(q, r);		
+	};
 };
 
 // function needs to be defined for the AxialCoordinate type to be used as key in TMap
