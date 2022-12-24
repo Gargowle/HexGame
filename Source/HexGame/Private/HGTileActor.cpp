@@ -3,7 +3,7 @@
 
 #include "HGTileActor.h"
 
-#define Z_POSITION_OFFSET_LIMIT 0.1f
+#define Z_POSITION_OFFSET_LIMIT 20.0f
 
 // Sets default values
 AHGTileActor::AHGTileActor()
@@ -18,12 +18,12 @@ AHGTileActor::AHGTileActor()
 	HexCoord = FAxialCoordinate();
 }
 
-FAxialCoordinate const AHGTileActor::GetHexCoordinate()
+FAxialCoordinate AHGTileActor::GetHexCoordinate() const
 {
 	return HexCoord;
 }
 
-void AHGTileActor::SetHexCoordinate(FAxialCoordinate HexCoordinate)
+void AHGTileActor::SetHexCoordinate(const FAxialCoordinate& HexCoordinate)
 {
 	HexCoord = HexCoordinate;
 	SetActorLocation(HexCoordinate.ToWorldCoordinate() + FVector(0,0, GetRandomZOffset()));

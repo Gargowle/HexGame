@@ -6,6 +6,10 @@
 #include "GameFramework/Actor.h"
 #include "HGTileActor.generated.h"
 
+// size as present in the mesh
+#define HEX_DIAMETER 100.0f
+
+
 namespace BaseVector
 {
 	// vectors that the axes in the axial ("hex") coordinate system correspond to in world coordinates
@@ -67,7 +71,7 @@ FORCEINLINE uint32 GetTypeHash(const FAxialCoordinate& Coord)
 }
 
 
-UCLASS()
+UCLASS(Abstract)
 class HEXGAME_API AHGTileActor : public AActor
 {
 	GENERATED_BODY()
@@ -88,8 +92,7 @@ public:
 	UPROPERTY(EditAnywhere)
 	UStaticMeshComponent* MeshComponent;
 	
-	FAxialCoordinate const GetHexCoordinate();
+	FAxialCoordinate GetHexCoordinate() const;
 
-	void SetHexCoordinate(FAxialCoordinate HexCoordinate);
-
+	void SetHexCoordinate(const FAxialCoordinate& HexCoordinate);
 };
