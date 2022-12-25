@@ -27,10 +27,7 @@ void AHGGameModeBase::GenerateTileMap()
 		{
 			FAxialCoordinate AxCoord = FAxialCoordinate::HexFromIndex(Row, Column);
 			
-			FVector WorldLocation = AxCoord.ToWorldCoordinate();
-			FRotator WorldRotation = FRotator::ZeroRotator;
-			WorldRotation.Yaw = 90.0f; // TODO: rotate mesh by 90° in Blender, reimport, and remove this line
-			FTransform SpawnTM = FTransform(WorldRotation, WorldLocation);
+			FTransform SpawnTM = FTransform(FRotator::ZeroRotator, AxCoord.ToWorldCoordinate());
 
 			AHGTileActor* CurrentTile = GetWorld()->SpawnActor<AHGTileActor>(SpawnClass, SpawnTM, SpawnParams);
 			CurrentTile->SetHexCoordinate(AxCoord);
