@@ -77,3 +77,6 @@ Plugins/*/Intermediate/*
 
 # Cache files for the editor to use
 DerivedDataCache/*
+
+# ini file that constantly is created anew but is irrelevant to the project
+Config/HoloLens/HoloLensEngine.ini
