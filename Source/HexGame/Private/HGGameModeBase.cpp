@@ -3,10 +3,14 @@
 
 #include "HGGameModeBase.h"
 
+#include "HGPawn.h"
+
 AHGGameModeBase::AHGGameModeBase()
 {
 	BoardWidth = 10;
 	BoardHeight = 8;
+
+	DefaultPawnClass = AHGPawn::StaticClass();
 }
 
 void AHGGameModeBase::InitGame(const FString& MapName, const FString& Options, FString& ErrorMessage)
