@@ -23,6 +23,8 @@ AHGPawn::AHGPawn() :
 
 	// No attachment necessary for movement component
 	FloatingPawnMovement  = CreateDefaultSubobject<UFloatingPawnMovement>("FloatingPawnMovement");
+
+	PrimaryActorTick.bCanEverTick = true;
 }
 
 // Called to bind functionality to input
