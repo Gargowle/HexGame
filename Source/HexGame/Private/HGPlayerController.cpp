@@ -6,4 +6,5 @@
 AHGPlayerController::AHGPlayerController()
 {
 	bShowMouseCursor = true;
+	bEnableClickEvents = true;
 }
