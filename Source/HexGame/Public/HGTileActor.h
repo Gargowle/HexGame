@@ -84,6 +84,8 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	virtual void PostInitializeComponents() override;
+
 	virtual float GetRandomZOffset();
 
 public:
@@ -95,4 +97,7 @@ public:
 	FAxialCoordinate GetHexCoordinate() const;
 
 	void SetHexCoordinate(const FAxialCoordinate& HexCoordinate);
+	
+	UFUNCTION()
+	virtual void OnActorClicked(AActor* TouchedActor, FKey ButtonPressed);
 };

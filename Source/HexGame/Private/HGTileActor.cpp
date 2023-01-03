@@ -30,10 +30,24 @@ void AHGTileActor::SetHexCoordinate(const FAxialCoordinate& HexCoordinate)
 	SetActorLocation(HexCoordinate.ToWorldCoordinate() + FVector(0,0, GetRandomZOffset()));
 }
 
+void AHGTileActor::OnActorClicked(AActor* TouchedActor, FKey ButtonPressed)
+{
+	// Dummy functionality to check that this function is triggered TODO: Implement actual functionality
+	MeshComponent->SetVisibility(!MeshComponent->GetVisibleFlag(), true);
+	UE_LOG(LogTemp, Warning, TEXT("Tile was clicked"));
+}
+
 // Called when the game starts or when spawned
 void AHGTileActor::BeginPlay()
 {
 	Super::BeginPlay();
+}
+
+void AHGTileActor::PostInitializeComponents()
+{
+	Super::PostInitializeComponents();
+
+	OnClicked.AddUniqueDynamic(this, &AHGTileActor::OnActorClicked);
 }
 
 float AHGTileActor::GetRandomZOffset()
