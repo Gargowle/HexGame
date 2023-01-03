@@ -13,6 +13,7 @@ AHGTileActor::AHGTileActor()
 
 	MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("HexMesh"));
 	RootComponent = MeshComponent;
+	MeshComponent->SetCollisionProfileName(TEXT("UI"));
 	
 	// assume default values
 	HexCoord = FAxialCoordinate();
