@@ -20,7 +20,6 @@ public:
 	
 	virtual void InitGame(const FString& MapName, const FString& Options, FString& ErrorMessage) override;
 
-public:
 	UPROPERTY()
 	TMap<FAxialCoordinate, AHGTileActor*> TileMap;
 
