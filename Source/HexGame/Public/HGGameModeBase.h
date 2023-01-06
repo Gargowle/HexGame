@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
 #include "HGTileActor.h"
+#include "HGMouseHoverAura.h"
 #include "HGGameModeBase.generated.h"
 
 /**
@@ -20,6 +21,12 @@ public:
 	
 	virtual void InitGame(const FString& MapName, const FString& Options, FString& ErrorMessage) override;
 
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<AHGMouseHoverAura> MouseHoverAuraClass;
+
+	UPROPERTY(BlueprintReadWrite)
+	AHGMouseHoverAura* MouseHoverAuraActor;
+		
 	UPROPERTY()
 	TMap<FAxialCoordinate, AHGTileActor*> TileMap;
 

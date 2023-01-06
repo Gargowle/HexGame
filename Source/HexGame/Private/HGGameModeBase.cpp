@@ -18,6 +18,9 @@ void AHGGameModeBase::InitGame(const FString& MapName, const FString& Options, F
 	Super::InitGame(MapName, Options, ErrorMessage);
 
 	GenerateTileMap();
+
+	// create the actor that is used to highlight the tile that the player is going to click on
+	MouseHoverAuraActor = GetWorld()->SpawnActor<AHGMouseHoverAura>(MouseHoverAuraClass, FTransform::Identity);
 }
 
 void AHGGameModeBase::GenerateTileMap()
