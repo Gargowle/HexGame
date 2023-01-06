@@ -100,4 +100,10 @@ public:
 	
 	UFUNCTION()
 	virtual void OnActorClicked(AActor* TouchedActor, FKey ButtonPressed);
+
+	UFUNCTION()
+	virtual void OnActorBeginCursorOver(AActor* TouchedActor);
+	
+	UFUNCTION()
+	virtual void OnActorEndCursorOver(AActor* TouchedActor);
 };
