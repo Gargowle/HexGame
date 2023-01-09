@@ -17,11 +17,16 @@ public:
 	AHGPieceActor();
 
 protected:
+	virtual void PostInitializeComponents() override;
+	
 	FAxialCoordinate HexCoord;
 	
 	UPROPERTY(EditAnywhere)
 	UStaticMeshComponent* MeshComponent;
 	
+	UFUNCTION()
+	virtual void OnActorClicked(AActor* TouchedActor, FKey ButtonPressed);
+
 public:
 	virtual void MovePiece(FAxialCoordinate HexCoord);
 

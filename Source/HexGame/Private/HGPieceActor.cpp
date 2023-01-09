@@ -10,9 +10,25 @@ AHGPieceActor::AHGPieceActor()
 {
 	MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MeshComponent"));
 	RootComponent = MeshComponent;
+	MeshComponent->SetCollisionProfileName(TEXT("UI"));
 
 }
 
+void AHGPieceActor::PostInitializeComponents()
+{
+	Super::PostInitializeComponents();
+
+	OnClicked.AddUniqueDynamic(this, &AHGPieceActor::OnActorClicked);
+}
+
+void AHGPieceActor::OnActorClicked(AActor* TouchedActor, FKey ButtonPressed)
+{
+	AHGGameModeBase* GameMode = GetWorld()->GetAuthGameMode<AHGGameModeBase>();
+	if(ensure(GameMode))
+	{
+		GameMode->SetActivePiece(this);
+	}
+}
 
 void AHGPieceActor::MovePiece(FAxialCoordinate NewHexCoord)
 {

@@ -38,7 +38,11 @@ public:
 		
 	UPROPERTY()
 	TMap<FAxialCoordinate, AHGTileActor*> TileMap;
-	
+
+	UPROPERTY()
+	TArray<AHGPieceActor*> Pieces;
+
+	UPROPERTY()
 	AHGPieceActor* ActivePiece;
 
 	void GenerateTileMap();

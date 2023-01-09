@@ -11,6 +11,8 @@ AHGGameModeBase::AHGGameModeBase()
 	BoardHeight = 8;
 
 	DefaultPawnClass = AHGPawn::StaticClass();
+
+	ActivePiece = nullptr;
 }
 
 void AHGGameModeBase::InitGame(const FString& MapName, const FString& Options, FString& ErrorMessage)
@@ -22,8 +24,13 @@ void AHGGameModeBase::InitGame(const FString& MapName, const FString& Options, F
 	// create the actor that is used to highlight the tile that the player is going to click on
 	MouseHoverAuraActor = GetWorld()->SpawnActor<AHGMouseHoverAura>(MouseHoverAuraClass, FTransform::Identity);
 
-	ActivePiece = GetWorld()->SpawnActor<AHGPieceActor>(PieceActorClass, FTransform::Identity);
-	ActivePiece->MovePiece(FAxialCoordinate::HexFromIndex(0, 0));
+	AHGPieceActor* Piece = nullptr;
+	for(int32 Row = 0; Row < BoardHeight; ++Row)
+	{
+		Piece = GetWorld()->SpawnActor<AHGPieceActor>(PieceActorClass, FTransform::Identity);
+		Piece->MovePiece(FAxialCoordinate::HexFromIndex(Row, 0));
+		Pieces.Push(Piece);
+	}
 }
 
 void AHGGameModeBase::GenerateTileMap()

@@ -55,7 +55,10 @@ void AHGTileActor::OnActorClicked(AActor* TouchedActor, FKey ButtonPressed)
 	if(ensure(GameMode))
 	{
 		AHGPieceActor* ActivePiece = GameMode->ActivePiece;
-		ActivePiece->MovePiece(this->HexCoord);		
+		if(IsValid(ActivePiece))
+		{
+			ActivePiece->MovePiece(this->HexCoord);
+		}
 	}
 }
 
