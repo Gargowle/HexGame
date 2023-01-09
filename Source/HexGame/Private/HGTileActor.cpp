@@ -51,9 +51,12 @@ void AHGTileActor::SetHexCoordinate(const FAxialCoordinate& HexCoordinate)
 
 void AHGTileActor::OnActorClicked(AActor* TouchedActor, FKey ButtonPressed)
 {
-	// Dummy functionality to check that this function is triggered TODO: Implement actual functionality
-	MeshComponent->SetVisibility(!MeshComponent->GetVisibleFlag(), true);
-	UE_LOG(LogTemp, Warning, TEXT("Tile was clicked"));
+	AHGGameModeBase* GameMode = GetWorld()->GetAuthGameMode<AHGGameModeBase>();
+	if(ensure(GameMode))
+	{
+		AHGPieceActor* ActivePiece = GameMode->ActivePiece;
+		ActivePiece->MovePiece(this->HexCoord);		
+	}
 }
 
 void AHGTileActor::OnActorBeginCursorOver(AActor* TouchedActor)
