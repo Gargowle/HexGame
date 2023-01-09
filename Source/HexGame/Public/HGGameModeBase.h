@@ -6,6 +6,7 @@
 #include "GameFramework/GameModeBase.h"
 #include "HGTileActor.h"
 #include "HGMouseHoverAura.h"
+#include "HGPieceActor.h"
 #include "HGGameModeBase.generated.h"
 
 /**
@@ -15,20 +16,30 @@ UCLASS(Abstract)
 class HEXGAME_API AHGGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
+
+protected:	
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<AHGTileActor> SpawnClass;
 	
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<AHGMouseHoverAura> MouseHoverAuraClass;
+	
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<AHGPieceActor> PieceActorClass;
+
+
 public:
 	AHGGameModeBase();
 	
 	virtual void InitGame(const FString& MapName, const FString& Options, FString& ErrorMessage) override;
-
-	UPROPERTY(EditAnywhere)
-	TSubclassOf<AHGMouseHoverAura> MouseHoverAuraClass;
 
 	UPROPERTY(BlueprintReadWrite)
 	AHGMouseHoverAura* MouseHoverAuraActor;
 		
 	UPROPERTY()
 	TMap<FAxialCoordinate, AHGTileActor*> TileMap;
+	
+	AHGPieceActor* ActivePiece;
 
 	void GenerateTileMap();
 
@@ -38,7 +49,5 @@ public:
 	UPROPERTY(EditDefaultsOnly)
 	int32 BoardHeight;
 
-	UPROPERTY(EditAnywhere)
-	TSubclassOf<AHGTileActor> SpawnClass;
-	
+	void SetActivePiece(AHGPieceActor* NewActivePiece);
 };
