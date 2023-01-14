@@ -6,6 +6,8 @@
 #include "GameFramework/Actor.h"
 #include "HGTileActor.generated.h"
 
+class AHGPieceActor;
+
 // size as present in the mesh
 #define HEX_DIAMETER 100.0f
 
@@ -88,15 +90,14 @@ protected:
 
 	virtual float GetRandomZOffset();
 
-public:
 	FAxialCoordinate HexCoord;
 
 	UPROPERTY(EditAnywhere)
 	UStaticMeshComponent* MeshComponent;
 	
-	FAxialCoordinate GetHexCoordinate() const;
 
-	void SetHexCoordinate(const FAxialCoordinate& HexCoordinate);
+	UPROPERTY(BlueprintReadWrite)
+	AHGPieceActor* PieceOnTop;
 	
 	UFUNCTION()
 	virtual void OnActorClicked(AActor* TouchedActor, FKey ButtonPressed);
@@ -106,4 +107,16 @@ public:
 	
 	UFUNCTION()
 	virtual void OnActorEndCursorOver(AActor* TouchedActor);
+	
+public:
+	FAxialCoordinate GetHexCoordinate() const;
+
+	void SetHexCoordinate(const FAxialCoordinate& HexCoordinate);
+
+	UFUNCTION(BlueprintCallable)
+	bool CanAcceptNewPiece();
+
+	bool AcceptNewPiece(AHGPieceActor* NewPiece);
+
+	void RemovePieceReference();
 };

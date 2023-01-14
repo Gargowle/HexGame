@@ -16,6 +16,8 @@ AHGTileActor::AHGTileActor()
 	
 	// assume default values
 	HexCoord = FAxialCoordinate();
+
+	PieceOnTop = nullptr;
 }
 
 // Called when the game starts or when spawned
@@ -47,6 +49,27 @@ void AHGTileActor::SetHexCoordinate(const FAxialCoordinate& HexCoordinate)
 {
 	HexCoord = HexCoordinate;
 	SetActorLocation(HexCoordinate.ToWorldCoordinate() + FVector(0,0, GetRandomZOffset()));
+}
+
+bool AHGTileActor::CanAcceptNewPiece()
+{
+	return !PieceOnTop;
+}
+
+bool AHGTileActor::AcceptNewPiece(AHGPieceActor* NewPiece)
+{
+	if(CanAcceptNewPiece() && IsValid(NewPiece))
+	{
+		PieceOnTop = NewPiece;
+		return true;
+	}
+	return false;
+}
+
+void AHGTileActor::RemovePieceReference()
+{
+	// TODO: check that the piece is either not valid anymore or has moved away and convert function to bool return type
+	PieceOnTop = nullptr;
 }
 
 void AHGTileActor::OnActorClicked(AActor* TouchedActor, FKey ButtonPressed)
