@@ -23,6 +23,7 @@ AHGTileActor::AHGTileActor()
 	HexCoord = FAxialCoordinate();
 
 	PieceOnTop = nullptr;
+	bCanBeReached = false;
 }
 
 // Called when the game starts or when spawned
@@ -121,5 +122,11 @@ void AHGTileActor::OnActorEndCursorOver(AActor* TouchedActor)
 			Aura->SetVisibility(false);
 		}
 	}
+}
+
+void AHGTileActor::SetCanBeReached(bool bNewCanBeReached)
+{
+	bCanBeReached = bNewCanBeReached;
+	WalkableAuraMeshComponent->SetVisibility(bNewCanBeReached);
 }
 

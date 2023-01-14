@@ -100,6 +100,8 @@ protected:
 
 	UPROPERTY(BlueprintReadWrite)
 	AHGPieceActor* PieceOnTop;
+
+	bool bCanBeReached;
 	
 	UFUNCTION()
 	virtual void OnActorClicked(AActor* TouchedActor, FKey ButtonPressed);
@@ -121,4 +123,7 @@ public:
 	bool AcceptNewPiece(AHGPieceActor* NewPiece);
 
 	void RemovePieceReference();
+
+	UFUNCTION()
+	virtual void SetCanBeReached(bool bNewCanBeReached);
 };
