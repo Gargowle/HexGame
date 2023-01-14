@@ -13,6 +13,11 @@ AHGTileActor::AHGTileActor()
 	MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("HexMesh"));
 	RootComponent = MeshComponent;
 	MeshComponent->SetCollisionProfileName(TEXT("UI"));
+
+	WalkableAuraMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("WalkableAuraMesh"));
+	WalkableAuraMeshComponent->SetupAttachment(MeshComponent);
+	WalkableAuraMeshComponent->SetCollisionProfileName(TEXT("NoCollision"));
+	WalkableAuraMeshComponent->SetVisibility(false);
 	
 	// assume default values
 	HexCoord = FAxialCoordinate();

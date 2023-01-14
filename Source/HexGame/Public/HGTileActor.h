@@ -95,6 +95,8 @@ protected:
 	UPROPERTY(EditAnywhere)
 	UStaticMeshComponent* MeshComponent;
 	
+	UPROPERTY(EditAnywhere)
+	UStaticMeshComponent* WalkableAuraMeshComponent;
 
 	UPROPERTY(BlueprintReadWrite)
 	AHGPieceActor* PieceOnTop;
