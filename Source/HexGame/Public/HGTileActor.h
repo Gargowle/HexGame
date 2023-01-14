@@ -25,7 +25,7 @@ namespace BaseVector
 
 
 /* Axial coordinates as explained here: https://www.redblobgames.com/grids/hexagons/#coordinates */
-USTRUCT()
+USTRUCT(BlueprintType)
 struct FAxialCoordinate
 {
 	GENERATED_BODY()
