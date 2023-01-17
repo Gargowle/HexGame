@@ -44,3 +44,27 @@ void AHGPieceActor::MovePiece(FAxialCoordinate NewHexCoord)
 	}
 }
 
+TArray<FAxialCoordinate> AHGPieceActor::GetPossibleMoveLocations_Implementation()
+{
+	TArray<FAxialCoordinate> PossibleMoveLocations;
+
+	// when not overridden in a BP, return all fields by default
+	AHGGameModeBase* GameMode = GetWorld()->GetAuthGameMode<AHGGameModeBase>();
+	if(ensure(GameMode))
+	{
+		for(int32 Row = 0; Row < GameMode->BoardHeight; ++Row)
+		{
+			for(int32 Column = 0; Column < GameMode->BoardWidth; ++Column)
+			{
+				auto Coord = FAxialCoordinate::HexFromIndex(Row, Column);
+				if(GameMode->TileMap[Coord]->CanAcceptNewPiece())
+				{
+					PossibleMoveLocations.Emplace(FAxialCoordinate::HexFromIndex(Row, Column));
+				}
+			}
+		}
+	}
+
+	return PossibleMoveLocations;
+}
+

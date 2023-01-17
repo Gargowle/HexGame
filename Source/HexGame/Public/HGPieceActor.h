@@ -30,4 +30,7 @@ protected:
 public:
 	virtual void MovePiece(FAxialCoordinate HexCoord);
 
+	UFUNCTION(BlueprintNativeEvent)
+	TArray<FAxialCoordinate> GetPossibleMoveLocations();
+
 };
