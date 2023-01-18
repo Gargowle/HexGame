@@ -59,5 +59,28 @@ void AHGGameModeBase::SetActivePiece(AHGPieceActor* NewActivePiece)
 	if(ensure(IsValid(NewActivePiece)))
 	{
 		ActivePiece = NewActivePiece;
+
+		ReCalculateReachableTiles();
+	}
+}
+
+void AHGGameModeBase::ReCalculateReachableTiles()
+{
+	if(IsValid(ActivePiece))
+	{
+		// reset reachabillity of all tiles
+		for (const TPair<FAxialCoordinate, AHGTileActor*>& Pair: TileMap)
+		{
+			Pair.Value->SetCanBeReached(false);
+		}
+		
+		// get reachable tiles
+		TArray<FAxialCoordinate> ReachableTiles =  ActivePiece->GetPossibleMoveLocations();
+
+		// set all of them reachable
+		for(const FAxialCoordinate& Coord : ReachableTiles)
+		{
+			TileMap[Coord]->SetCanBeReached(true);
+		}		
 	}
 }

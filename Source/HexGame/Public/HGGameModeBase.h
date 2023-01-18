@@ -54,4 +54,6 @@ public:
 	int32 BoardHeight;
 
 	void SetActivePiece(AHGPieceActor* NewActivePiece);
+
+	void ReCalculateReachableTiles();
 };
