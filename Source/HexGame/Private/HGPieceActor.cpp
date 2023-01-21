@@ -36,10 +36,12 @@ void AHGPieceActor::MovePiece(FAxialCoordinate NewHexCoord)
 	if(ensure(GameMode))
 	{
 		AHGTileActor* Tile = GameMode->TileMap[NewHexCoord];
-		if(ensure(Tile)) // make sure that a tile of this coordinate exists
+		if(ensure(Tile) && Tile->AcceptNewPiece(this)) // make sure that a tile of this coordinate exists and it is free
 		{
+			GameMode->TileMap[HexCoord]->RemovePieceReference();
 			HexCoord = NewHexCoord;
 			this->TeleportTo(Tile->GetActorLocation(), Tile->GetActorRotation(), false, true);
+			GameMode->ReCalculateReachableTiles();
 		}
 	}
 }
