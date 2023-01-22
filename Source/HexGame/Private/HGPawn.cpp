@@ -11,7 +11,7 @@
 AHGPawn::AHGPawn() :
 	MinSpringArmLength(1000.0f),
 	MaxSpringArmLength(4000.0f),
-	MaxZoomSpeed(1000.0f)
+	MaxZoomSpeed(2500.0f)
 {
 	RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("RootComponent"));
 	
